@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import Facturas from "./componentes/Facturas";
 
 
 function App() {
   const urlApi = "http://localhost:3001/facturas";
-  const [datos, setDatos] = useState(null);
+  const [datos, setDatos] = useState([]);
+  // El hook "busqueda" es para guardar el valor de la busqueda.
+  const [busqueda, setBusqueda] = useState("");
   useEffect(() => {
     fetch(urlApi)
       .then(resp => resp.json())
@@ -28,30 +31,10 @@ function App() {
             </Col>
           </Row>
           <table className="listado table table-striped table-bordered table-hover">
-            <thead className="thead-light">
-              <tr>
-                <th className="col-min">Num.</th>
-                <th className="col-med">Fecha</th>
-                <th className="col-concepto">Concepto</th>
-                <th className="col-med">Base</th>
-                <th className="col-max">IVA</th>
-                <th className="col-med">Total</th>
-                <th className="col-max">Estado</th>
-                <th className="col-max">Vence</th>
-              </tr>
-            </thead>
-            <tbody className="lista-facturas">
-              <tr className="dummy">
-                <td className="numero"></td>
-                <td className="fecha"></td>
-                <td className="concepto"></td>
-                <td className="base"></td>
-                <td className="iva"></td>
-                <td className="total"></td>
-                <td className="estado table-success"></td>
-                <td className="vence table-success"></td>
-              </tr>
-            </tbody>
+            <Facturas
+              busqueda={busqueda}
+              datos={datos}
+            />
             <tfoot>
               <tr>
                 <th className="text-right" colSpan="3">Totales:</th>
