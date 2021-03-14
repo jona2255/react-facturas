@@ -20,7 +20,7 @@ function App() {
         <main>
           <Row>
             <Col className="info-listado info-listado-top text-right">
-              <Buscador cambiarBusqueda={cambiarBusqueda} />
+              <Buscador buscar={buscar} />
             </Col>
           </Row>
           <table className="listado table table-striped table-bordered table-hover">
