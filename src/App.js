@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Facturas from "./componentes/Facturas";
+import Buscador from "./components/Buscador";
+import Totales from "./components/Totales";
 import useApi from "./hooks/useApi";
 
 
@@ -18,10 +20,7 @@ function App() {
         <main>
           <Row>
             <Col className="info-listado info-listado-top text-right">
-              <label>
-                Buscar
-                <input type="text" className="form-control form-control-sm" />
-              </label>
+              <Buscador cambiarBusqueda={cambiarBusqueda} />
             </Col>
           </Row>
           <table className="listado table table-striped table-bordered table-hover">
@@ -29,20 +28,17 @@ function App() {
               busqueda={busqueda}
               datos={datos}
             />
-            <tfoot>
-              <tr>
-                <th className="text-right" colSpan="3">Totales:</th>
-                <td className="base-total"></td>
-                <td className="iva-total"></td>
-                <td className="final-total"></td>
-                <td colSpan="2"></td>
-              </tr>
-            </tfoot>
+            <Totales
+              totalBase={totalBase}
+              totalIva={totalIva}
+              totalTotal={totalTotal} />
           </table>
         </main>
       </Container>
     </>
   );
 }
+
+
 
 export default App;

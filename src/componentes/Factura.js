@@ -27,6 +27,7 @@ const Factura = (props) => {
       return diasFaltantes > 0 ? `${fechaVencimientoParseada} (faltan ${diasFaltantes} días)` : `${fechaVencimientoParseada} (hace ${diasFaltantes * -1} días)`;
     }
   };
+
   if (datos !== null) {
     return (
       <tbody className="lista-facturas">
