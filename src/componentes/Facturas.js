@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import Factura from "./Factura";
 
 const Facturas = (props) => {
-  const { busqueda, datos } = props;
+  let { busqueda, datos } = props;
   return (
     <>
       <thead className="thead-light">
