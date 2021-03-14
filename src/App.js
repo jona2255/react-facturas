@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Facturas from "./componentes/Facturas";
+import useApi from "./hooks/useApi";
 
 
 function App() {
   const urlApi = "http://localhost:3001/facturas";
-  const [datos, setDatos] = useState([]);
   // El hook "busqueda" es para guardar el valor de la busqueda.
   const [busqueda, setBusqueda] = useState("");
-  useEffect(() => {
-    fetch(urlApi)
-      .then(resp => resp.json())
-      .then(datosAPI => {
-        setDatos(datosAPI);
-      });
-  }, []);
+  const datos = useApi(urlApi);
   return (
     <>
       <Container as="section" fluid className="principal">

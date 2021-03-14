@@ -27,25 +27,12 @@ const Factura = (props) => {
       return diasFaltantes > 0 ? `${fechaVencimientoParseada} (faltan ${diasFaltantes} días)` : `${fechaVencimientoParseada} (hace ${diasFaltantes * -1} días)`;
     }
   };
-  return (
-    <tbody className="lista-facturas">
-      {
-        busqueda.length === 0 ? datos
-          .filter(factura => factura.tipo === "ingreso")
-          .map(factura => (
-            <tr key={factura.id}>
-              <td>{factura.numero}</td>
-              <td>{fechaParseada(factura.fecha)}</td>
-              <td>{factura.concepto}</td>
-              <td>{`${factura.base}€`}</td>
-              <td>{calcularIva(factura.base, factura.tipoIva)}</td>
-              <td>{calcularTotal(factura.base, factura.tipoIva)}</td>
-              <td className={estadoFactura(factura.abonada)}>{factura.abonada ? "Abonada" : "Pendiente"}</td>
-              <td className={estadoFactura(factura.abonada)}>{vencimiento(factura)}</td>
-            </tr>
-          ))
-          : datos
-            .filter(factura => factura.tipo === "ingreso" && factura.numero.includes(busqueda))
+  if (datos !== null) {
+    return (
+      <tbody className="lista-facturas">
+        {
+          busqueda.length === 0 ? datos
+            .filter(factura => factura.tipo === "ingreso")
             .map(factura => (
               <tr key={factura.id}>
                 <td>{factura.numero}</td>
@@ -58,9 +45,26 @@ const Factura = (props) => {
                 <td className={estadoFactura(factura.abonada)}>{vencimiento(factura)}</td>
               </tr>
             ))
-      }
-    </tbody>
-  );
+            : datos
+              .filter(factura => factura.tipo === "ingreso" && factura.numero.includes(busqueda))
+              .map(factura => (
+                <tr key={factura.id}>
+                  <td>{factura.numero}</td>
+                  <td>{fechaParseada(factura.fecha)}</td>
+                  <td>{factura.concepto}</td>
+                  <td>{`${factura.base}€`}</td>
+                  <td>{calcularIva(factura.base, factura.tipoIva)}</td>
+                  <td>{calcularTotal(factura.base, factura.tipoIva)}</td>
+                  <td className={estadoFactura(factura.abonada)}>{factura.abonada ? "Abonada" : "Pendiente"}</td>
+                  <td className={estadoFactura(factura.abonada)}>{vencimiento(factura)}</td>
+                </tr>
+              ))
+        }
+      </tbody>
+    );
+  } else {
+    return;
+  }
 };
 
 Factura.propTypes = {
